@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="SimpleDateFormat">
+        <ignore path="src\com\itheima\zhbj74\view\PullToRefreshListView.java" />
+    </issue>
+</lint>
