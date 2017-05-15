@@ -7,8 +7,8 @@ import java.util.ArrayList;
  * 
  * 使用Gson解析时,对象书写技巧: 1. 逢{}创建对象, 逢[]创建集合(ArrayList) 2. 所有字段名称要和json返回字段高度一致
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class NewsMenu {
 

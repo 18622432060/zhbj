@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.itheima.zhbj74.base.BasePager;
+import com.itheima.zhbj74.utils.LogUtils;
 
 /**
  * 首页
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class HomePager extends BasePager {
 
@@ -22,7 +23,7 @@ public class HomePager extends BasePager {
 
 	@Override
 	public void initData() {
-		System.out.println("首页初始化啦...");
+		LogUtils.v("首页初始化啦...");
 
 		// 要给帧布局填充布局对象
 		TextView view = new TextView(mActivity);

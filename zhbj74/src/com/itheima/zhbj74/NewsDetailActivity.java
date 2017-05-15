@@ -20,13 +20,15 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.OnekeyShareTheme;
 
+import com.itheima.zhbj.R;
+import com.itheima.zhbj74.utils.LogUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * 新闻详情页面
  * 
- * @author Administrator
+ * @author liupeng
  * 
  */
 @SuppressWarnings("deprecation")
@@ -86,7 +88,7 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				super.onPageStarted(view, url, favicon);
-				System.out.println("开始加载网页了");
+				LogUtils.v("开始加载网页了");
 				pbLoading.setVisibility(View.VISIBLE);
 			}
 
@@ -94,14 +96,14 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
-				System.out.println("网页加载结束");
+				LogUtils.v("网页加载结束");
 				pbLoading.setVisibility(View.INVISIBLE);
 			}
 
 			// 所有链接跳转会走此方法
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				System.out.println("跳转链接:" + url);
+				LogUtils.v("跳转链接:" + url);
 				view.loadUrl(url);// 在跳转链接时强制在当前webview中加载
 				return true;
 			}
@@ -115,14 +117,14 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 			public void onProgressChanged(WebView view, int newProgress) {
 				super.onProgressChanged(view, newProgress);
 				// 进度发生变化
-				System.out.println("进度:" + newProgress);
+				LogUtils.v("进度:" + newProgress);
 			}
 
 			@Override
 			public void onReceivedTitle(WebView view, String title) {
 				super.onReceivedTitle(view, title);
 				// 网页标题
-				System.out.println("网页标题:" + title);
+				LogUtils.v("网页标题:" + title);
 			}
 		});
 	}

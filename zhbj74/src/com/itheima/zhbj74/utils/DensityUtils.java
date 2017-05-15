@@ -2,6 +2,9 @@ package com.itheima.zhbj74.utils;
 
 import android.content.Context;
 
+/**
+ * @author liupeng
+ */
 public class DensityUtils {
 
 	public static int dip2px(float dip, Context ctx) {
@@ -16,4 +19,5 @@ public class DensityUtils {
 		float dp = px / density;
 		return dp;
 	}
+	
 }

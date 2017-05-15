@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="ContentDescription" severity="ignore" />
+    <issue id="HardcodedText" severity="ignore" />
+    <issue id="OldTargetApi" severity="ignore" />
+    <issue id="SdCardPath" severity="ignore" />
+    <issue id="SetJavaScriptEnabled" severity="ignore" />
     <issue id="SimpleDateFormat">
         <ignore path="src\com\itheima\zhbj74\view\PullToRefreshListView.java" />
     </issue>

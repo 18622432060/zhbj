@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.itheima.zhbj74.MainActivity;
-import com.itheima.zhbj74.R;
+import com.itheima.zhbj.R;
 import com.itheima.zhbj74.base.BaseMenuDetailPager;
 import com.itheima.zhbj74.domain.NewsMenu.NewsTabData;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -27,7 +27,7 @@ import com.viewpagerindicator.TabPageIndicator;
  * 7.修改样式-背景样式&文字样式
  * 
  * @author liupeng
- * @date 2015-10-18
+ * @date 2017-10-18
  */
 public class NewsMenuDetailPager extends BaseMenuDetailPager implements OnPageChangeListener{
 

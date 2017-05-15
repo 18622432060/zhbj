@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.itheima.zhbj74.MainActivity;
-import com.itheima.zhbj74.R;
+import com.itheima.zhbj.R;
 import com.itheima.zhbj74.base.impl.NewsCenterPager;
 import com.itheima.zhbj74.domain.NewsMenu.NewsMenuData;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -20,8 +20,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 /**
  * 侧边栏fragment
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class LeftMenuFragment extends BaseFragment {
 
@@ -70,7 +70,7 @@ public class LeftMenuFragment extends BaseFragment {
 	/**
 	 * 设置当前详情页
 	 * @param position
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-10 
 	 * @return void
 	 */

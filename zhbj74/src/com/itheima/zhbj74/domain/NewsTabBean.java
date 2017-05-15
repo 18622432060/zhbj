@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * 页签详情数据对象
  * 
- * @author Kevin
- * @date 2015-10-20
+ * @author liupeng
+ * @date 2017-10-20
  */
 public class NewsTabBean {
 

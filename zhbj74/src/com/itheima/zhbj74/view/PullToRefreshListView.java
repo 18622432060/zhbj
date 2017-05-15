@@ -16,12 +16,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.itheima.zhbj74.R;
+import com.itheima.zhbj.R;
 
 /**
  * 下拉刷新ListView
  * 
- * @author Administrator
+ * @author liupeng
  * 
  */
 public class PullToRefreshListView extends ListView implements OnScrollListener{
@@ -65,7 +65,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	/**
 	 * 初始化布局
 	 * 
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-15
 	 * @return void
 	 */
@@ -97,7 +97,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	/**
 	 * 初始化脚布局
 	 * 
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-16 
 	 * @return void
 	 */
@@ -188,7 +188,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	/**
 	 * 根据当前状态刷新界面
 	 * 
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-16 
 	 * @return void
 	 */
@@ -220,7 +220,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	/**
 	 * 刷新结束收起控件
 	 * 
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-16 
 	 * @return void
 	 */
@@ -251,7 +251,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	/**
 	 * 2.暴露接口设置监听
 	 * 
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-16 
 	 * @return void
 	 */
@@ -261,7 +261,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	
 	/**
 	 * 1.下拉刷新的回调接口
-	 * @author Administrator
+	 * @author liupeng
 	 *
 	 */
 	public interface onRefreshListener{

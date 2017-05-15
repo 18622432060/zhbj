@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.itheima.zhbj74.R;
+import com.itheima.zhbj.R;
 import com.itheima.zhbj74.base.BaseMenuDetailPager;
 import com.itheima.zhbj74.domain.PhotosBean;
 import com.itheima.zhbj74.domain.PhotosBean.PhotoNews;
@@ -34,8 +34,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 /**
  * 菜单详情页-组图
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
 		OnClickListener {

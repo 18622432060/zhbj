@@ -3,8 +3,8 @@ package com.itheima.zhbj74.domain;
 import java.util.ArrayList;
 /**
  * 组图对象
- * @author Kevin
- * @date 2015-10-22
+ * @author liupeng
+ * @date 2017-10-22
  */
 public class PhotosBean {
 

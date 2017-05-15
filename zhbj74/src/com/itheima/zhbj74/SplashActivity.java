@@ -12,72 +12,71 @@ import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
+import com.itheima.zhbj.R;
 import com.itheima.zhbj74.utils.PrefUtils;
 
+/**
+ * @author liupeng
+ */
 public class SplashActivity extends Activity {
 
-	
 	Context myContext;
+	@InjectView(R.id.rl_root)
+	RelativeLayout rlRoot;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		myContext = this;
 		setContentView(R.layout.activity_splash);
-		RelativeLayout rlRoot = (RelativeLayout) findViewById(R.id.rl_root);// ��ȡ��Բ���
-		// ��ת����
-		RotateAnimation animRotate = new RotateAnimation(0, 360,
-				Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF,
-				0.5F);
-		animRotate.setDuration(1500);
-		animRotate.setFillAfter(true);
-		// ���Ŷ���
-		ScaleAnimation animaScale = new ScaleAnimation(0, 1, 0, 1,
-				Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF,
-				0.5F);
+		ButterKnife.inject(this);
+
+		// 旋转动画
+		RotateAnimation animRotate = new RotateAnimation(0, 360,Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF,0.5F);
+		animRotate.setDuration(1500);//动画时间
+		animRotate.setFillAfter(true);//保持动画结束状态
+		// 缩放动画
+		ScaleAnimation animaScale = new ScaleAnimation(0, 1, 0, 1,Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF,0.5F);
 		animaScale.setDuration(1500);
 		animaScale.setFillAfter(true);
-		// ���䶯����͸���ȶ�����
+		// 透明动画
 		AlphaAnimation animaAlpha = new AlphaAnimation(0, 1);
 		animaAlpha.setDuration(2500);
 		animaAlpha.setFillAfter(true);
 
-		// ��������
-		AnimationSet set = new AnimationSet(true);// ע������Ƿ��� ��ʦ˵true��false������
+		// 动画集合
+		AnimationSet set = new AnimationSet(true);// 初始化动画集合
 		set.addAnimation(animRotate);
 		set.addAnimation(animaScale);
 		set.addAnimation(animaAlpha);
 
-		// ��������
+		// 启动动画
 		rlRoot.startAnimation(set);
 
 		set.setAnimationListener(new AnimationListener() {
 
-
 			@Override
 			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
  
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				// ��������
-				// ��һ�� ��������
-				// ���� ��ҳ��
-				boolean isFirstEnter = PrefUtils.getBoolean(myContext,"is_first_enter", true);
+				//第一次进入
 				Intent intent;
-				if(isFirstEnter){
-					//����
+				if(PrefUtils.getBoolean(myContext,"is_first_enter", true)){
+					//新手引导
 					intent = new Intent(getApplicationContext(),GuideActivity.class);
 				}else{
-					//��ҳ��
+					//主页面
 					intent = new Intent(getApplicationContext(),MainActivity.class);
 				}
 				startActivity(intent);
@@ -89,7 +88,6 @@ public class SplashActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}

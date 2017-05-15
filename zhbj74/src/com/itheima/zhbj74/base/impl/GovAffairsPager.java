@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.itheima.zhbj74.base.BasePager;
+import com.itheima.zhbj74.utils.LogUtils;
 
 /**
  * 政务
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class GovAffairsPager extends BasePager {
 
@@ -22,7 +23,7 @@ public class GovAffairsPager extends BasePager {
 
 	@Override
 	public void initData() {
-		System.out.println("政务初始化啦...");
+		LogUtils.v("政务初始化啦...");
 
 		// 要给帧布局填充布局对象
 		TextView view = new TextView(mActivity);

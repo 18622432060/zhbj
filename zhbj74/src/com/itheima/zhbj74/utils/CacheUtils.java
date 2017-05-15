@@ -4,9 +4,8 @@ import android.content.Context;
 
 /**
  * 网络缓存工具类
- * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class CacheUtils {
 
@@ -32,4 +31,5 @@ public class CacheUtils {
 		//文件缓存: 查找有没有一个文件叫做MD5(url)的, 有的话,说明有缓存
 		return PrefUtils.getString(ctx, url, null);
 	}
+	
 }

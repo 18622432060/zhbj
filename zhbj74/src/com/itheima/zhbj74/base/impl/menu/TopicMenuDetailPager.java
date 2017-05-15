@@ -11,8 +11,8 @@ import com.itheima.zhbj74.base.BaseMenuDetailPager;
 /**
  * 菜单详情页-专题
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class TopicMenuDetailPager extends BaseMenuDetailPager {
 

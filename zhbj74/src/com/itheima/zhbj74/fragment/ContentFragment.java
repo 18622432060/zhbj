@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.itheima.zhbj74.MainActivity;
-import com.itheima.zhbj74.R;
+import com.itheima.zhbj.R;
 import com.itheima.zhbj74.base.BasePager;
 import com.itheima.zhbj74.base.impl.GovAffairsPager;
 import com.itheima.zhbj74.base.impl.HomePager;
@@ -24,8 +24,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 /**
  * 主页面fragment
  * 
- * @author Kevin
- * @date 2015-10-18
+ * @author liupeng
+ * @date 2017-10-18
  */
 public class ContentFragment extends BaseFragment {
 	@ViewInject(R.id.vp_content)

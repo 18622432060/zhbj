@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.itheima.zhbj74.MainActivity;
-import com.itheima.zhbj74.R;
+import com.itheima.zhbj.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class BasePager {

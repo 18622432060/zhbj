@@ -1,9 +1,9 @@
 /*
- * 官网地站:http://www.mob.com
- * 技术支持QQ: 4006852216
- * 官方微信:ShareSDK   （如果发布新版本的话，我们将会第一时间通过微信将版本更新内容推送给您。如果使用过程中有任何问题，也可以通过微信与我们取得联系，我们将会在24小时内给予回复）
+ * 瀹樼綉鍦扮珯:http://www.mob.com
+ * 鎶�鏈敮鎸丵Q: 4006852216
+ * 瀹樻柟寰俊:ShareSDK   锛堝鏋滃彂甯冩柊鐗堟湰鐨勮瘽锛屾垜浠皢浼氱涓�鏃堕棿閫氳繃寰俊灏嗙増鏈洿鏂板唴瀹规帹閫佺粰鎮ㄣ�傚鏋滀娇鐢ㄨ繃绋嬩腑鏈変换浣曢棶棰橈紝涔熷彲浠ラ�氳繃寰俊涓庢垜浠彇寰楄仈绯伙紝鎴戜滑灏嗕細鍦�24灏忔椂鍐呯粰浜堝洖澶嶏級
  *
- * Copyright (c) 2013年 mob.com. All rights reserved.
+ * Copyright (c) 2013骞� mob.com. All rights reserved.
  */
 
 package cn.sharesdk.onekeyshare;
@@ -25,23 +25,23 @@ import cn.sharesdk.framework.ShareSDK;
 import com.mob.tools.utils.R;
 
 /**
- * ShareCore是快捷分享的实际出口，此类使用了反射的方式，配合传递进来的HashMap，
- *构造{@link ShareParams}对象，并执行分享，使快捷分享不再需要考虑目标平台
+ * ShareCore鏄揩鎹峰垎浜殑瀹為檯鍑哄彛锛屾绫讳娇鐢ㄤ簡鍙嶅皠鐨勬柟寮忥紝閰嶅悎浼犻�掕繘鏉ョ殑HashMap锛�
+ *鏋勯�爗@link ShareParams}瀵硅薄锛屽苟鎵ц鍒嗕韩锛屼娇蹇嵎鍒嗕韩涓嶅啀闇�瑕佽�冭檻鐩爣骞冲彴
  */
 public class ShareCore {
 	private ShareContentCustomizeCallback customizeCallback;
 
-	/** 设置用于分享过程中，根据不同平台自定义分享内容的回调 */
+	/** 璁剧疆鐢ㄤ簬鍒嗕韩杩囩▼涓紝鏍规嵁涓嶅悓骞冲彴鑷畾涔夊垎浜唴瀹圭殑鍥炶皟 */
 	public void setShareContentCustomizeCallback(ShareContentCustomizeCallback callback) {
 		customizeCallback = callback;
 	}
 
 	/**
-	 * 向指定平台分享内容
+	 * 鍚戞寚瀹氬钩鍙板垎浜唴瀹�
 	 * <p>
-	 * <b>注意：</b><br>
-	 * 参数data的键值需要严格按照{@link ShareParams}不同子类具体字段来命名，
-	 *否则无法反射此字段，也无法设置其值。
+	 * <b>娉ㄦ剰锛�</b><br>
+	 * 鍙傛暟data鐨勯敭鍊奸渶瑕佷弗鏍兼寜鐓@link ShareParams}涓嶅悓瀛愮被鍏蜂綋瀛楁鏉ュ懡鍚嶏紝
+	 *鍚﹀垯鏃犳硶鍙嶅皠姝ゅ瓧娈碉紝涔熸棤娉曡缃叾鍊笺��
 	 */
 	public boolean share(Platform plat, HashMap<String, Object> data) {
 		if (plat == null || data == null) {
@@ -74,7 +74,7 @@ public class ShareCore {
 		return true;
 	}
 
-	/** 判断指定平台是否使用客户端分享 */
+	/** 鍒ゆ柇鎸囧畾骞冲彴鏄惁浣跨敤瀹㈡埛绔垎浜� */
 	public static boolean isUseClientToShare(String platform) {
 		if ("Wechat".equals(platform) || "WechatMoments".equals(platform)
 				|| "WechatFavorite".equals(platform) || "ShortMessage".equals(platform)
@@ -108,7 +108,7 @@ public class ShareCore {
 		return false;
 	}
 
-	/** 判断指定平台是否可以用来授权 */
+	/** 鍒ゆ柇鎸囧畾骞冲彴鏄惁鍙互鐢ㄦ潵鎺堟潈 */
 	public static boolean canAuthorize(Context context, String platform) {
 		return !("WechatMoments".equals(platform)
 				|| "WechatFavorite".equals(platform) || "ShortMessage".equals(platform)
@@ -121,7 +121,7 @@ public class ShareCore {
 	}
 
 
-	/** 判断指定平台是否可以用来获取用户资料 */
+	/** 鍒ゆ柇鎸囧畾骞冲彴鏄惁鍙互鐢ㄦ潵鑾峰彇鐢ㄦ埛璧勬枡 */
 	public static boolean canGetUserInfo(Context context, String platform) {
 		return !("WechatMoments".equals(platform)
 				|| "WechatFavorite".equals(platform) || "ShortMessage".equals(platform)
@@ -134,7 +134,7 @@ public class ShareCore {
 				|| "Alipay".equals(platform));
 	}
 
-	/** 判断是否直接分享 */
+	/** 鍒ゆ柇鏄惁鐩存帴鍒嗕韩 */
 	public static boolean isDirectShare(Platform platform) {
 		return platform instanceof CustomPlatform || isUseClientToShare(platform.getName());
 	}

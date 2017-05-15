@@ -23,8 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.itheima.zhbj.R;
 import com.itheima.zhbj74.NewsDetailActivity;
-import com.itheima.zhbj74.R;
 import com.itheima.zhbj74.base.BaseMenuDetailPager;
 import com.itheima.zhbj74.domain.NewsMenu.NewsTabData;
 import com.itheima.zhbj74.domain.NewsTabBean;
@@ -32,6 +32,7 @@ import com.itheima.zhbj74.domain.NewsTabBean.NewsData;
 import com.itheima.zhbj74.domain.NewsTabBean.TopNews;
 import com.itheima.zhbj74.global.GlobalConstants;
 import com.itheima.zhbj74.utils.CacheUtils;
+import com.itheima.zhbj74.utils.LogUtils;
 import com.itheima.zhbj74.utils.PrefUtils;
 import com.itheima.zhbj74.view.PullToRefreshListView;
 import com.itheima.zhbj74.view.PullToRefreshListView.onRefreshListener;
@@ -48,7 +49,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 /**
  * 
- * @author Administrator
+ * @author liupeng
  * 
  */
 public class TabDetailPager extends BaseMenuDetailPager {
@@ -123,10 +124,10 @@ public class TabDetailPager extends BaseMenuDetailPager {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				System.out.println("第"+(position-2)+"个被点击了 ");
+				LogUtils.v("第"+(position-2)+"个被点击了 ");
 				int headerViewsCount = lvList.getHeaderViewsCount();//获取头布局数量
 				position=position-headerViewsCount;//需要减去头布局的占位
-				System.out.println("第"+position+"个被点击了 ");
+				LogUtils.v("第"+position+"个被点击了 ");
 				NewsData news = mNewsList.get(position);
 			    String readIds =	PrefUtils.getString(mActivity,"read_ids","");
 			    if(!readIds.contains(""+news.id)){//只有不包含当前ID才追加
@@ -159,7 +160,7 @@ public class TabDetailPager extends BaseMenuDetailPager {
 	 * 
 	 * 从服务器获取数据
 	 * 
-	 * @author Administrator
+	 * @author liupeng
 	 * @date 2017-2-10
 	 * @return void
 	 */
@@ -171,7 +172,7 @@ public class TabDetailPager extends BaseMenuDetailPager {
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				// 请求成功
 				String result = responseInfo.result;// 获取服务器返回结果
-				System.out.println("服务器返回结果:" + result);
+				LogUtils.v("服务器返回结果:" + result);
 				processData(result, false);
 				CacheUtils.setCache(mUrl, result, mActivity);
 				lvList.onRefreshComplete(true);
@@ -301,12 +302,12 @@ public class TabDetailPager extends BaseMenuDetailPager {
 							break;
 						case MotionEvent.ACTION_CANCEL:// 取消事件,
 							// 当按下viewpager后,直接滑动listview,导致抬起事件无法响应,但会走此事件
-							System.out.println("ACTION_CANCEL");
+							LogUtils.v("ACTION_CANCEL");
 							// 启动广告
 							mHandler.sendEmptyMessageDelayed(0, 3000);
 							break;
 						case MotionEvent.ACTION_UP:
-							System.out.println("ACTION_UP");
+							LogUtils.v("ACTION_UP");
 							// 启动广告
 							mHandler.sendEmptyMessageDelayed(0, 3000);
 							break;
