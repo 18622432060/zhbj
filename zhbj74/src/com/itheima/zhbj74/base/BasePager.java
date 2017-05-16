@@ -6,18 +6,27 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
-import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj.R;
+import com.itheima.zhbj74.MainActivity;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-public class BasePager {
+/**
+ * 五个标签页基类
+ * @author liupeng
+ */
+public abstract class BasePager {
 
 	public Activity mActivity;
-
+	@InjectView(R.id.tv_title)
 	public TextView tvTitle;
+	@InjectView(R.id.btn_menu)
 	public ImageButton btnMenu;
+	@InjectView(R.id.fl_content)
 	public FrameLayout flContent;// 空的帧布局对象, 要动态添加布局
+	@InjectView(R.id.btn_photo)
 	public ImageButton btnPhoto;
 	public View mRootView;// 当前页面的布局对象
 
@@ -28,19 +37,13 @@ public class BasePager {
 
 	public View initView() {
 		View view = View.inflate(mActivity, R.layout.base_pager, null);
-		tvTitle = (TextView) view.findViewById(R.id.tv_title);
-		btnMenu = (ImageButton) view.findViewById(R.id.btn_menu);
-		flContent = (FrameLayout) view.findViewById(R.id.fl_content);
-		btnPhoto = (ImageButton) view.findViewById(R.id.btn_photo);
-
+		ButterKnife.inject(this, view);
 		btnMenu.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				toggle();
 			}
 		});
-		
 		return view;
 	}
 	
@@ -50,8 +53,6 @@ public class BasePager {
 		slidingMenu.toggle();
 	}
 
-	public void initData() {
-
-	}
+	public abstract void initData() ;
 
 }

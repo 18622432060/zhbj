@@ -9,13 +9,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import butterknife.InjectView;
 
-import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj.R;
+import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj74.base.impl.NewsCenterPager;
 import com.itheima.zhbj74.domain.NewsMenu.NewsMenuData;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * 侧边栏fragment
@@ -25,8 +25,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  */
 public class LeftMenuFragment extends BaseFragment {
 
-	@ViewInject(R.id.lv_list)
-	private ListView lvList;
+	@InjectView(R.id.lv_list)
+	ListView lvList;
 
 	private ArrayList<NewsMenuData> mNewsMenuData;// 侧边栏网络数据
 	
@@ -43,7 +43,6 @@ public class LeftMenuFragment extends BaseFragment {
 	@Override
 	public void initData() {
 
-
 	}
 
 	// 给侧边栏设置数据
@@ -53,17 +52,13 @@ public class LeftMenuFragment extends BaseFragment {
 		mAdpater = new LeftMenuAdpater();
 		lvList.setAdapter(mAdpater);
 		lvList.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 				mCurrentPos = position  ;
 				mAdpater.notifyDataSetChanged();//刷新当前所选的位置
 				toggle();
-				
 				setCurrentDetailPager(position);
 			}
-		
 		});
 	}
 	
@@ -91,7 +86,7 @@ public class LeftMenuFragment extends BaseFragment {
 		slidingMenu.toggle();
 	}
 	
-	class LeftMenuAdpater extends BaseAdapter {
+	private class LeftMenuAdpater extends BaseAdapter {
 
 		@Override
 		public int getCount() {
@@ -121,7 +116,6 @@ public class LeftMenuFragment extends BaseFragment {
 			}else{
 				tvMenu.setEnabled(false);
 			}
-			
 			return view;
 		}
 	}

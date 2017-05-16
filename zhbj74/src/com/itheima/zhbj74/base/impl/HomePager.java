@@ -11,7 +11,6 @@ import com.itheima.zhbj74.utils.LogUtils;
 
 /**
  * 首页
- * 
  * @author liupeng
  * @date 2017-10-18
  */
@@ -24,19 +23,15 @@ public class HomePager extends BasePager {
 	@Override
 	public void initData() {
 		LogUtils.v("首页初始化啦...");
-
 		// 要给帧布局填充布局对象
 		TextView view = new TextView(mActivity);
 		view.setText("首页");
 		view.setTextColor(Color.RED);
 		view.setTextSize(22);
 		view.setGravity(Gravity.CENTER);
-
 		flContent.addView(view);
-
 		// 修改页面标题
 		tvTitle.setText("智慧北京");
-
 		// 隐藏菜单按钮
 		btnMenu.setVisibility(View.GONE);
 	}

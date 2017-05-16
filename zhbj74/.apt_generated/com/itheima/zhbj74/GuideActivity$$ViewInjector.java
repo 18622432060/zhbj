@@ -7,20 +7,20 @@ import butterknife.ButterKnife.Finder;
 public class GuideActivity$$ViewInjector {
   public static void inject(Finder finder, final com.itheima.zhbj74.GuideActivity target, Object source) {
     View view;
+    view = finder.findRequiredView(source, 2130968592, "field 'btnStart'");
+    target.btnStart = (android.widget.Button) view;
     view = finder.findRequiredView(source, 2130968594, "field 'ivRedPoint'");
     target.ivRedPoint = (android.widget.ImageView) view;
     view = finder.findRequiredView(source, 2130968593, "field 'llContainer'");
     target.llContainer = (android.widget.LinearLayout) view;
-    view = finder.findRequiredView(source, 2130968592, "field 'btnStart'");
-    target.btnStart = (android.widget.Button) view;
     view = finder.findRequiredView(source, 2130968591, "field 'mViewPager'");
     target.mViewPager = (android.support.v4.view.ViewPager) view;
   }
 
   public static void reset(com.itheima.zhbj74.GuideActivity target) {
+    target.btnStart = null;
     target.ivRedPoint = null;
     target.llContainer = null;
-    target.btnStart = null;
     target.mViewPager = null;
   }
 }

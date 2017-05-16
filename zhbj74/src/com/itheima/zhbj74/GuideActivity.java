@@ -80,7 +80,11 @@ public class GuideActivity extends Activity {
 				// 重新设置布局参数
 				ivRedPoint.setLayoutParams(params);
 				// 透明动画
-				ivRedPoint.setAlpha(1-positionOffset);
+				if(positionOffset<0.5){
+					ivRedPoint.setAlpha(1-positionOffset*2);
+				}else{
+					ivRedPoint.setAlpha(1-(1-positionOffset)*2);
+				}
 			}
 			
 			@Override

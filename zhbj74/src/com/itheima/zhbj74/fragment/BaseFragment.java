@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.lidroid.xutils.ViewUtils;
+import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -22,10 +21,9 @@ public abstract class BaseFragment extends Fragment {
 
 	// 初始化fragment的布局
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = initView();
-		ViewUtils.inject(this, view);
+		ButterKnife.inject(this, view);
 		return view;
 	}
 
@@ -42,4 +40,5 @@ public abstract class BaseFragment extends Fragment {
 
 	// 初始化数据, 必须由子类实现
 	public abstract void initData();
+
 }

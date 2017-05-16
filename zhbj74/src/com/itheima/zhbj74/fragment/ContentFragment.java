@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import butterknife.InjectView;
 
-import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj.R;
+import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj74.base.BasePager;
 import com.itheima.zhbj74.base.impl.GovAffairsPager;
 import com.itheima.zhbj74.base.impl.HomePager;
@@ -19,7 +20,6 @@ import com.itheima.zhbj74.base.impl.SettingPager;
 import com.itheima.zhbj74.base.impl.SmartServicePager;
 import com.itheima.zhbj74.view.NoScrollViewPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * 主页面fragment
@@ -28,10 +28,11 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @date 2017-10-18
  */
 public class ContentFragment extends BaseFragment {
-	@ViewInject(R.id.vp_content)
-	private NoScrollViewPager mViewPager;
-	@ViewInject(R.id.rg_group)
-	private RadioGroup rgGroup;
+	
+	@InjectView(R.id.vp_content)
+	NoScrollViewPager mViewPager;
+	@InjectView(R.id.rg_group)
+	RadioGroup rgGroup;
 
 	private ArrayList<BasePager> mPagers;// 五个标签页集合
 
@@ -44,7 +45,6 @@ public class ContentFragment extends BaseFragment {
 	@Override
 	public void initData() {
 		mPagers = new ArrayList<BasePager>();
-
 		// 添加五个标签页
 		mPagers.add(new HomePager(mActivity));
 		mPagers.add(new NewsCenterPager(mActivity));
@@ -56,39 +56,37 @@ public class ContentFragment extends BaseFragment {
 
 		// 底栏标签切换监听
 		rgGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch (checkedId) {
-				case R.id.rb_home:
-					// 首页
-					// mViewPager.setCurrentItem(0);
-					mViewPager.setCurrentItem(0, false);// 参2:表示是否具有滑动动画
-					break;
-				case R.id.rb_news:
-					// 新闻中心
-					mViewPager.setCurrentItem(1, false);
-					break;
-				case R.id.rb_smart:
-					// 智慧服务
-					mViewPager.setCurrentItem(2, false);
-					break;
-				case R.id.rb_gov:
-					// 政务
-					mViewPager.setCurrentItem(3, false);
-					break;
-				case R.id.rb_setting:
-					// 设置
-					mViewPager.setCurrentItem(4, false);
-					break;
-				default:
-					break;
+					case R.id.rb_home:
+						// 首页
+						// mViewPager.setCurrentItem(0);
+						mViewPager.setCurrentItem(0, false);// 参2:表示是否具有滑动动画
+						break;
+					case R.id.rb_news:
+						// 新闻中心
+						mViewPager.setCurrentItem(1, false);
+						break;
+					case R.id.rb_smart:
+						// 智慧服务
+						mViewPager.setCurrentItem(2, false);
+						break;
+					case R.id.rb_gov:
+						// 政务
+						mViewPager.setCurrentItem(3, false);
+						break;
+					case R.id.rb_setting:
+						// 设置
+						mViewPager.setCurrentItem(4, false);
+						break;
+					default:
+						break;
 				}
 			}
 		});
 
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-
 			@Override
 			public void onPageSelected(int position) {
 				BasePager pager = mPagers.get(position);
@@ -113,7 +111,6 @@ public class ContentFragment extends BaseFragment {
 
 			}
 		});
-
 		// 手动加载第一页数据
 		mPagers.get(0).initData();
 		// 首页禁用侧边栏
@@ -136,7 +133,7 @@ public class ContentFragment extends BaseFragment {
 		}
 	}
 
-	class ContentAdapter extends PagerAdapter {
+	private class ContentAdapter extends PagerAdapter {
 
 		@Override
 		public int getCount() {
@@ -152,7 +149,7 @@ public class ContentFragment extends BaseFragment {
 		public Object instantiateItem(ViewGroup container, int position) {
 			BasePager pager = mPagers.get(position);
 			View view = pager.mRootView;// 获取当前页面对象的布局
-			// pager.initData();// 初始化数据
+			// pager.initData();// 初始化数据,viewPage默认加载下一页为了流量和性能不在此处调用
 			container.addView(view);
 			return view;
 		}

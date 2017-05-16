@@ -5,9 +5,7 @@ import android.view.View;
 
 /**
  * 菜单详情页基类
- * 
  * @author liupeng
- * 
  */
 public abstract class BaseMenuDetailPager {
 

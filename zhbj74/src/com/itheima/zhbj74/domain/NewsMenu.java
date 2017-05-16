@@ -26,8 +26,7 @@ public class NewsMenu {
 
 		@Override
 		public String toString() {
-			return "NewsMenuData [title=" + title + ", children=" + children
-					+ "]";
+			return "NewsMenuData [title=" + title + ", children=" + children + "]";
 		}
 	}
 
