@@ -101,8 +101,7 @@ public class ContentFragment extends BaseFragment {
 			}
 
 			@Override
-			public void onPageScrolled(int position, float positionOffset,
-					int positionOffsetPixels) {
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 			}
 

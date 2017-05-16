@@ -54,7 +54,7 @@ public class LeftMenuFragment extends BaseFragment {
 		lvList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-				mCurrentPos = position  ;
+				mCurrentPos = position;
 				mAdpater.notifyDataSetChanged();//刷新当前所选的位置
 				toggle();
 				setCurrentDetailPager(position);

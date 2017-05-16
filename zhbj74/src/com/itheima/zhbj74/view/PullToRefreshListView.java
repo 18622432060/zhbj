@@ -15,14 +15,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 import com.itheima.zhbj.R;
 
 /**
  * 下拉刷新ListView
- * 
  * @author liupeng
- * 
  */
 public class PullToRefreshListView extends ListView implements OnScrollListener{
 	
@@ -36,15 +36,18 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	private int mHeaderViewHeight;
 	private int startY;
 	
-	private TextView tvTitle;
-	private TextView tvTime;
-	private ImageView ivArrow;
+	@InjectView(R.id.tv_title)
+	TextView tvTitle;
+	@InjectView(R.id.tv_time)
+	TextView tvTime;
+	@InjectView(R.id.iv_arrow)
+	ImageView ivArrow;
+	@InjectView(R.id.pb_loading)
+	ProgressBar pbProgress;
 	private RotateAnimation animUp;
 	private RotateAnimation animDown;
-	private ProgressBar pbProgress;
-
-	public PullToRefreshListView(Context context, AttributeSet attrs,
-			int defStyle) {
+	
+	public PullToRefreshListView(Context context, AttributeSet attrs,int defStyle) {
 		super(context, attrs, defStyle);
 		initHeaderView();
 		initFooterView();
@@ -70,15 +73,9 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	 * @return void
 	 */
 	private void initHeaderView() {
-		mHeaderView = View
-				.inflate(getContext(), R.layout.pull_to_refresh_header, null);
+		mHeaderView = View.inflate(getContext(), R.layout.pull_to_refresh_header, null);
 		addHeaderView(mHeaderView);
-		
-		tvTitle = (TextView) mHeaderView.findViewById(R.id.tv_title);
-		tvTime = (TextView) mHeaderView.findViewById(R.id.tv_time);
-		ivArrow = (ImageView) mHeaderView.findViewById(R.id.iv_arrow);
-		pbProgress = (ProgressBar) mHeaderView.findViewById(R.id.pb_loading);
-
+		ButterKnife.inject(this, mHeaderView);
 		// 隐藏头布局
 		mHeaderView.measure(0, 0);
 		mHeaderViewHeight = mHeaderView.getMeasuredHeight();
@@ -116,58 +113,51 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		switch (ev.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			startY = (int) ev.getY();
-			break;
-		case MotionEvent.ACTION_MOVE:
-			if (startY == -1) {// 当用户按住头条新闻的viewpager进行下拉时,ACTION_DOWN会被viewpager消费掉,
-				// 导致startY没有赋值,此处需要重新获取一下
+			case MotionEvent.ACTION_DOWN:
 				startY = (int) ev.getY();
-			}
-			int endY = (int) ev.getY();
-			int dy = endY - startY;
-			
-			int firstVisiblePosition = getFirstVisiblePosition();// 当前显示的第一个item的位置
-
-			// 必须下拉,并且当前显示的是第一个item
-			if (dy > 0 && firstVisiblePosition == 0) {
-				int padding = dy - mHeaderViewHeight;// 计算当前下拉控件的padding值
-				mHeaderView.setPadding(0, padding, 0, 0);
-
-				if (padding > 0 && mCurrentState != STATE_RELEASE_TO_REFRESH) {
-//					// 改为松开刷新
-					mCurrentState = STATE_RELEASE_TO_REFRESH;
-					refreshState();
-				} else if (padding < 0 && mCurrentState != STATE_PULL_TO_REFRESH) {
-//					// 改为下拉刷新
-					mCurrentState = STATE_PULL_TO_REFRESH;
-					refreshState();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				if (startY == -1) {// 当用户按住头条新闻的viewpager进行下拉时,ACTION_DOWN会被viewpager消费掉,
+					// 导致startY没有赋值,此处需要重新获取一下
+					startY = (int) ev.getY();
 				}
-				return true;
-			}
-			break; 
-		case MotionEvent.ACTION_UP:
-			startY = -1;
-
-			if (mCurrentState == STATE_RELEASE_TO_REFRESH) {
-				mCurrentState = STATE_REFRESHING;
-				refreshState();
-
-				// 完整展示头布局
-				mHeaderView.setPadding(0, 0, 0, 0);
-
-				// 
-				if (mListener != null) {
-					mListener.onRefresh();
+				int endY = (int) ev.getY();
+				int dy = endY - startY;
+				int firstVisiblePosition = getFirstVisiblePosition();// 当前显示的第一个item的位置
+				// 必须下拉,并且当前显示的是第一个item
+				if (dy > 0 && firstVisiblePosition == 0) {
+					int padding = dy - mHeaderViewHeight;// 计算当前下拉控件的padding值
+					mHeaderView.setPadding(0, padding, 0, 0);
+	
+					if (padding > 0 && mCurrentState != STATE_RELEASE_TO_REFRESH) {
+						// 改为松开刷新
+						mCurrentState = STATE_RELEASE_TO_REFRESH;
+						refreshState();
+					} else if (padding < 0 && mCurrentState != STATE_PULL_TO_REFRESH) {
+						// 改为下拉刷新
+						mCurrentState = STATE_PULL_TO_REFRESH;
+						refreshState();
+					}
+					return true;
 				}
-
-			} else if (mCurrentState == STATE_PULL_TO_REFRESH) {
-				// 隐藏头布局
-				mHeaderView.setPadding(0, -mHeaderViewHeight, 0, 0);
-			}
-			break;
-		default:
-			break;
+				break; 
+			case MotionEvent.ACTION_UP:
+				startY = -1;
+				if (mCurrentState == STATE_RELEASE_TO_REFRESH) {
+					mCurrentState = STATE_REFRESHING;
+					refreshState();
+					// 完整展示头布局
+					mHeaderView.setPadding(0, 0, 0, 0);
+					if (mListener != null) {
+						mListener.onRefresh();
+					}
+				} else if (mCurrentState == STATE_PULL_TO_REFRESH) {
+					// 隐藏头布局
+					mHeaderView.setPadding(0, -mHeaderViewHeight, 0, 0);
+				}
+				break;
+			default:
+				break;
 		}
 		return super.onTouchEvent(ev);
 	}
@@ -179,7 +169,6 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 		animUp = new RotateAnimation(0, -180, Animation.RELATIVE_TO_SELF, 0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
 		animUp.setDuration(200);
 		animUp.setFillAfter(true);
-
 		animDown = new RotateAnimation(-180, 0, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		animDown.setDuration(200);
 		animDown.setFillAfter(true);
@@ -227,12 +216,10 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	public void onRefreshComplete(boolean success){
 		if(!isLoadMore) {
 			mHeaderView.setPadding(0, -mHeaderViewHeight, 0, 0);
-
 			mCurrentState = STATE_PULL_TO_REFRESH;
 			tvTitle.setText("下拉刷新");
 			pbProgress.setVisibility(View.INVISIBLE);
 			ivArrow.setVisibility(View.VISIBLE);
-
 			if (success) {// 只有刷新成功之后才更新时间
 				setCurrentTime();
 			}
@@ -281,10 +268,8 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 				//到底了
 				//加载更多
 				isLoadMore = true;
-				
 				mFooterView.setPadding(0,0,0,0);//显示加载更多的布局
 				setSelection(getCount()-1);// 将listview显示在最后一个item上,从而加载更多会直接展示出来, 无需手动滑动
-			
 				//通知主页面加载下一页数据
 				if(mListener!=null){
 					mListener.onLoadMore(); 
@@ -296,10 +281,8 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 
 	//滑动过程回调
 	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem,
-			int visibleItemCount, int totalItemCount) {
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		
 	}
-
 	
 }

@@ -9,15 +9,15 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
-import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj.R;
+import com.itheima.zhbj74.MainActivity;
 import com.itheima.zhbj74.base.BaseMenuDetailPager;
 import com.itheima.zhbj74.domain.NewsMenu.NewsTabData;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.viewpagerindicator.TabPageIndicator;
 /**
  * 菜单详情页-新闻
@@ -31,27 +31,25 @@ import com.viewpagerindicator.TabPageIndicator;
  */
 public class NewsMenuDetailPager extends BaseMenuDetailPager implements OnPageChangeListener{
 
-	@ViewInject(R.id.vp_news_menu_detail)
-	private ViewPager mViewPager;
+	@InjectView(R.id.vp_news_menu_detail)
+	ViewPager mViewPager;
 	
-	@ViewInject(R.id.indicator)
-	private TabPageIndicator mIndicator;
+	@InjectView(R.id.indicator)
+	TabPageIndicator mIndicator;
 
 	private ArrayList<NewsTabData> mTabData;// 页签网络数据
 
 	private ArrayList<TabDetailPager> mPagers;
 
-	public NewsMenuDetailPager(Activity activity,
-			ArrayList<NewsTabData> children) {
+	public NewsMenuDetailPager(Activity activity,ArrayList<NewsTabData> children) {
 		super(activity);
 		mTabData = children;
 	}
 
 	@Override
 	public View initView() {
-		View view = View.inflate(mActivity, R.layout.pager_news_menu_detail,
-				null);
-		ViewUtils.inject(this, view);
+		View view = View.inflate(mActivity, R.layout.pager_news_menu_detail,null);
+		ButterKnife.inject(this, view);
 		return view;
 	}
 
@@ -62,14 +60,13 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements OnPageCh
 			TabDetailPager pager = new TabDetailPager(mActivity,nwd);
 			mPagers.add(pager);
 		}
-		NewsMeunDetailAdapter adapter = new NewsMeunDetailAdapter();
-		mViewPager.setAdapter(adapter);
+		mViewPager.setAdapter(new NewsMeunDetailAdapter());
 		mIndicator.setViewPager(mViewPager);//将ViewPager和指示器绑定在一起。注意必须在设置数据后才能绑定
 //		mViewPager.setOnPageChangeListener(this);
-		mIndicator.setOnPageChangeListener(this);//// 此处必须给指示器设置页面监听,不能设置给viewpager
+		mIndicator.setOnPageChangeListener(this);// 此处必须给指示器设置页面监听,不能设置给viewpager
 	}
 
-	class NewsMeunDetailAdapter extends PagerAdapter {
+	private class NewsMeunDetailAdapter extends PagerAdapter {
 		
 		//指示器的标题
 		@Override
@@ -104,8 +101,7 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements OnPageCh
 	}
 
 	@Override
-	public void onPageScrolled(int position, float positionOffset,
-			int positionOffsetPixels) {
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 		
 	}
 
@@ -147,8 +143,8 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements OnPageCh
 		}
 	}
 
-	@ViewInject(R.id.btn_next)
-	private ImageButton mImagetButton;
+	@InjectView(R.id.btn_next)
+	ImageButton mImagetButton;
 	
 	@OnClick(R.id.btn_next)
 	public void nextPage(View view) {

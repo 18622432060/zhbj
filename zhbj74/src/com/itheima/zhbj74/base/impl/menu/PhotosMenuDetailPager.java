@@ -37,8 +37,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @author liupeng
  * @date 2017-10-18
  */
-public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
-		OnClickListener {
+public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClickListener {
 
 	@ViewInject(R.id.lv_photo)
 	private ListView lvPhoto;
@@ -57,45 +56,37 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
 
 	@Override
 	public View initView() {
-		View view = View.inflate(mActivity, R.layout.pager_photos_menu_detail,
-				null);
+		View view = View.inflate(mActivity, R.layout.pager_photos_menu_detail,null);
 		ViewUtils.inject(this, view);
 		return view;
 	}
 
 	@Override
 	public void initData() {
-		String cache = CacheUtils.getCache(GlobalConstants.PHOTOS_URL,
-				mActivity);
+		String cache = CacheUtils.getCache(GlobalConstants.PHOTOS_URL,mActivity);
 		if (!TextUtils.isEmpty(cache)) {
 			processData(cache);
 		}
-
 		getDataFromServer();
 	}
 
 	private void getDataFromServer() {
 		HttpUtils utils = new HttpUtils();
-		utils.send(HttpMethod.GET, GlobalConstants.PHOTOS_URL,
-				new RequestCallBack<String>() {
-
-					@Override
-					public void onSuccess(ResponseInfo<String> responseInfo) {
-						String result = responseInfo.result;
-						processData(result);
-
-						CacheUtils.setCache(GlobalConstants.PHOTOS_URL, result,
-								mActivity);
-					}
-
-					@Override
-					public void onFailure(HttpException error, String msg) {
-						// 请求失败
-						error.printStackTrace();
-						Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT)
-								.show();
-					}
-				});
+		utils.send(HttpMethod.GET, GlobalConstants.PHOTOS_URL,new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				String result = responseInfo.result;
+				processData(result);
+				CacheUtils.setCache(GlobalConstants.PHOTOS_URL, result,mActivity);
+			}
+	
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				// 请求失败
+				error.printStackTrace();
+				Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 
 	protected void processData(String result) {
@@ -105,8 +96,7 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
 		mNewsList = photosBean.data.news;
 
 		lvPhoto.setAdapter(new PhotoAdapter());
-		gvPhoto.setAdapter(new PhotoAdapter());// gridview的布局结构和listview完全一致,
-												// 所以可以共用一个adapter
+		gvPhoto.setAdapter(new PhotoAdapter());// gridview的布局结构和listview完全一致,所以可以共用一个adapter
 	}
 
 	class PhotoAdapter extends BaseAdapter {
@@ -115,8 +105,7 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
 
 		public PhotoAdapter() {
 			mBitmapUtils = new BitmapUtils(mActivity);
-			mBitmapUtils
-					.configDefaultLoadingImage(R.drawable.pic_item_list_default);
+			mBitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
 		}
 
 		@Override
@@ -138,24 +127,17 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = View.inflate(mActivity,
-						R.layout.list_item_photos, null);
+				convertView = View.inflate(mActivity,R.layout.list_item_photos, null);
 				holder = new ViewHolder();
-				holder.ivPic = (ImageView) convertView
-						.findViewById(R.id.iv_pic);
-				holder.tvTitle = (TextView) convertView
-						.findViewById(R.id.tv_title);
+				holder.ivPic = (ImageView) convertView.findViewById(R.id.iv_pic);
+				holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-
 			PhotoNews item = getItem(position);
-
 			holder.tvTitle.setText(item.title);
-			mBitmapUtils.display(holder.ivPic, item.listimage.replace(
-					"http://10.0.2.2:8080/zhbj", GlobalConstants.SERVER_URL));
-
+			mBitmapUtils.display(holder.ivPic, item.listimage.replace("http://10.0.2.2:8080/zhbj", GlobalConstants.SERVER_URL));
 			return convertView;
 		}
 
@@ -175,14 +157,12 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements
 			lvPhoto.setVisibility(View.GONE);
 			gvPhoto.setVisibility(View.VISIBLE);
 			btnPhoto.setImageResource(R.drawable.icon_pic_list_type);
-
 			isListView = false;
 		} else {
 			// 切成listview
 			lvPhoto.setVisibility(View.VISIBLE);
 			gvPhoto.setVisibility(View.GONE);
 			btnPhoto.setImageResource(R.drawable.icon_pic_grid_type);
-
 			isListView = true;
 		}
 	}

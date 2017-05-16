@@ -7,9 +7,7 @@ import android.view.MotionEvent;
 
 /**
  * 不允许滑动的ViewPager
- * 
  * @author liupeng
- * 
  */
 public class NoScrollViewPager extends ViewPager {
 
@@ -29,8 +27,7 @@ public class NoScrollViewPager extends ViewPager {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		// 重写此方法，触摸时什么都不做，从而实现对滑动事件的禁用
-		return true;
+		return true; // 重写此方法，触摸时什么都不做，从而实现对滑动事件的禁用
 	}
 
 }

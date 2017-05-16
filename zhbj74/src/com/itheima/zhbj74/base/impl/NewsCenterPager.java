@@ -72,7 +72,6 @@ public class NewsCenterPager extends BasePager {
 		utils.send(HttpMethod.GET, GlobalConstants.CATEGORY_URL,new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
-				// 请求成功
 				String result = responseInfo.result;// 获取服务器返回结果
 				LogUtils.v("服务器返回结果:" + result);
 				// JsonObject, Gson
@@ -83,7 +82,6 @@ public class NewsCenterPager extends BasePager {
 	
 			@Override
 			public void onFailure(HttpException error, String msg) {
-				// 请求失败
 				error.printStackTrace();
 				Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
 			}
@@ -94,7 +92,6 @@ public class NewsCenterPager extends BasePager {
 	 * 解析数据
 	 */
 	protected void processData(String json) {
-		// Gson: Google Json
 		Gson gson = new Gson();
 		mNewsData = gson.fromJson(json, NewsMenu.class);
 		LogUtils.v("解析结果:" + mNewsData);
