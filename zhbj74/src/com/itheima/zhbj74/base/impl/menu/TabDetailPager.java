@@ -274,7 +274,6 @@ public class TabDetailPager extends BaseMenuDetailPager {
 								// 删除handler的所有消息
 								mHandler.removeCallbacksAndMessages(null);
 								// mHandler.post(new Runnable() {
-								//
 								// @Override
 								// public void run() {
 								// //在主线程运行
@@ -309,7 +308,7 @@ public class TabDetailPager extends BaseMenuDetailPager {
 	}
 
 	// 头条新闻适配器
-	class TopNewsAdapter extends PagerAdapter {
+	private class TopNewsAdapter extends PagerAdapter {
 
 		private BitmapUtils mBitmapUtils;
 
@@ -346,7 +345,7 @@ public class TabDetailPager extends BaseMenuDetailPager {
 		}
 	}
 
-	class NewsAdapter extends BaseAdapter {
+	private class NewsAdapter extends BaseAdapter {
 
 		private BitmapUtils mBitmapUtils;
 

@@ -16,44 +16,36 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.OnekeyShareTheme;
 
 import com.itheima.zhbj.R;
 import com.itheima.zhbj74.utils.LogUtils;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * 新闻详情页面
- * 
  * @author liupeng
- * 
  */
 @SuppressWarnings("deprecation")
 public class NewsDetailActivity extends Activity implements OnClickListener{
 
-	@ViewInject(R.id.ll_control)
-	private LinearLayout llControl;
-	
-	@ViewInject(R.id.btn_back)
-	private ImageButton btnBack;
-	
-	@ViewInject(R.id.btn_textsize)
-	private ImageButton btnTextSize;
-	
-	@ViewInject(R.id.btn_share)
-	private ImageButton btnShare;
-	
-	@ViewInject(R.id.btn_menu)
-	private ImageButton btnMenu;
-	
-	@ViewInject(R.id.wv_news_detail)
-	private WebView mWebView;
-	
-	@ViewInject(R.id.pb_loading)
-	private ProgressBar pbLoading;
+	@InjectView (R.id.ll_control)
+	LinearLayout llControl; 
+	@InjectView(R.id.btn_back)
+	ImageButton btnBack;
+	@InjectView(R.id.btn_textsize)
+	ImageButton btnTextSize;
+	@InjectView(R.id.btn_share)
+	ImageButton btnShare;
+	@InjectView(R.id.btn_menu)
+	ImageButton btnMenu;
+	@InjectView(R.id.wv_news_detail)
+	WebView mWebView;
+	@InjectView(R.id.pb_loading)
+	ProgressBar pbLoading;
 
 	private String mUrl;
 
@@ -62,7 +54,7 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_news_detail);
-		ViewUtils.inject(this);
+		ButterKnife.inject(this);
 
 		llControl.setVisibility(View.VISIBLE);
 		btnBack.setVisibility(View.VISIBLE);
@@ -75,7 +67,6 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 		mUrl = getIntent().getStringExtra("url");
 
 		mWebView.loadUrl(mUrl);
-		
 //		mWebView.loadUrl("http://www.qq.com");
 		
 		WebSettings settings = mWebView.getSettings();
@@ -133,18 +124,18 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_back:
-			finish();
-			break;
-		case R.id.btn_textsize:
-			// 修改网页字体大小
-			showChooseDialog();
-			break;
-		case R.id.btn_share:
-			showShare();
-			break;
-		default:
-			break;
+			case R.id.btn_back:
+				finish();
+				break;
+			case R.id.btn_textsize:
+				// 修改网页字体大小
+				showChooseDialog();
+				break;
+			case R.id.btn_share:
+				showShare();
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -157,9 +148,7 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 	private void showChooseDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("字体设置");
-
 		String[] items = new String[] { "超大号字体", "大号字体", "正常字体", "小号字体","超小号字体" };
-
 		//点击单选
 		builder.setSingleChoiceItems(items, mCurrenWhich,new DialogInterface.OnClickListener() {
 			@Override
@@ -167,61 +156,52 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 				mTempWhich = which;
 			}
 		});
-		
 		//确定按钮
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// 根据选择的字体来修改网页字体大小
 				WebSettings settings = mWebView.getSettings();
-
 				switch (mTempWhich) {
-				case 0:
-					// 超大字体
-					settings.setTextSize(TextSize.LARGEST);
-					// settings.setTextZoom(22);
-					break;
-				case 1:
-					// 大字体
-					settings.setTextSize(TextSize.LARGER);
-					break;
-				case 2:
-					// 正常字体
-					settings.setTextSize(TextSize.NORMAL);
-					break;
-				case 3:
-					// 小字体
-					settings.setTextSize(TextSize.SMALLER);
-					break;
-				case 4:
-					// 超小字体
-					settings.setTextSize(TextSize.SMALLEST);
-					break;
-				default:
-					break;
+					case 0:
+						// 超大字体
+						settings.setTextSize(TextSize.LARGEST);//低版本
+						// settings.setTextZoom(22);//高版本
+						break;
+					case 1:
+						// 大字体
+						settings.setTextSize(TextSize.LARGER);
+						break;
+					case 2:
+						// 正常字体
+						settings.setTextSize(TextSize.NORMAL);
+						break;
+					case 3:
+						// 小字体
+						settings.setTextSize(TextSize.SMALLER);
+						break;
+					case 4:
+						// 超小字体
+						settings.setTextSize(TextSize.SMALLEST);
+						break;
+					default:
+						break;
 				}
 				mCurrenWhich = mTempWhich;
 			}
 		});
-
 		builder.setNegativeButton("取消", null);
-
 		builder.show();
 	}
-
 	
 	// 确保SDcard下面存在此张图片test.jpg
 	private void showShare() {
 		ShareSDK.initSDK(this);
 		OnekeyShare oks = new OnekeyShare();
-		
 //		oks.setTheme(OnekeyShareTheme.SKYBLUE);//修改主题样式
 		oks.setTheme(OnekeyShareTheme.CLASSIC);//修改主题样式
-
 		// 关闭sso授权
 		oks.disableSSOWhenAuthorize();
-
 		// 分享时Notification的图标和文字 2.5.9以后的版本不调用此方法
 		// oks.setNotification(R.drawable.ic_launcher,
 		// getString(R.string.app_name));
@@ -241,8 +221,8 @@ public class NewsDetailActivity extends Activity implements OnClickListener{
 		oks.setSite(getString(R.string.app_name));
 		// siteUrl是分享此内容的网站地址，仅在QQ空间使用
 		oks.setSiteUrl("http://sharesdk.cn");
-
 		// 启动分享GUI
 		oks.show(this);
 	}
+
 }

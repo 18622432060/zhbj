@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 import com.google.gson.Gson;
 import com.itheima.zhbj.R;
@@ -24,25 +26,22 @@ import com.itheima.zhbj74.global.GlobalConstants;
 import com.itheima.zhbj74.utils.CacheUtils;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * 菜单详情页-组图
- * 
  * @author liupeng
  * @date 2017-10-18
  */
 public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClickListener {
 
-	@ViewInject(R.id.lv_photo)
-	private ListView lvPhoto;
-	@ViewInject(R.id.gv_photo)
-	private GridView gvPhoto;
+	@InjectView(R.id.lv_photo)
+	ListView lvPhoto;
+	@InjectView(R.id.gv_photo)
+	GridView gvPhoto;
 
 	private ArrayList<PhotoNews> mNewsList;
 
@@ -57,7 +56,7 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClic
 	@Override
 	public View initView() {
 		View view = View.inflate(mActivity, R.layout.pager_photos_menu_detail,null);
-		ViewUtils.inject(this, view);
+		ButterKnife.inject(this, view);
 		return view;
 	}
 
@@ -82,7 +81,6 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClic
 	
 			@Override
 			public void onFailure(HttpException error, String msg) {
-				// 请求失败
 				error.printStackTrace();
 				Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
 			}
@@ -92,14 +90,12 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClic
 	protected void processData(String result) {
 		Gson gson = new Gson();
 		PhotosBean photosBean = gson.fromJson(result, PhotosBean.class);
-
 		mNewsList = photosBean.data.news;
-
 		lvPhoto.setAdapter(new PhotoAdapter());
 		gvPhoto.setAdapter(new PhotoAdapter());// gridview的布局结构和listview完全一致,所以可以共用一个adapter
 	}
 
-	class PhotoAdapter extends BaseAdapter {
+	private class PhotoAdapter extends BaseAdapter {
 
 		private BitmapUtils mBitmapUtils;
 
@@ -128,9 +124,7 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClic
 			ViewHolder holder;
 			if (convertView == null) {
 				convertView = View.inflate(mActivity,R.layout.list_item_photos, null);
-				holder = new ViewHolder();
-				holder.ivPic = (ImageView) convertView.findViewById(R.id.iv_pic);
-				holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
+				holder = new ViewHolder(convertView);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -144,8 +138,16 @@ public class PhotosMenuDetailPager extends BaseMenuDetailPager implements OnClic
 	}
 
 	static class ViewHolder {
+		
+		@InjectView(R.id.iv_pic)
 		public ImageView ivPic;
+		@InjectView(R.id.tv_title)
 		public TextView tvTitle;
+		
+		public ViewHolder(View convertView) {
+			ButterKnife.inject(this,convertView);
+		}
+	
 	}
 
 	private boolean isListView = true;// 标记当前是否是listview展示

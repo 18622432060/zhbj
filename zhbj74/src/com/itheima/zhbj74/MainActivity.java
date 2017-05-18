@@ -14,7 +14,6 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 /**
  * 主页面
- * 
  * @author liupeng
  * @date 2017-10-17
  */
@@ -38,7 +37,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		WindowManager wm = getWindowManager();
 		int width = wm.getDefaultDisplay().getWidth();
-		slidingMenu.setBehindOffset(width*200/320);//屏幕预留200像素宽度
+		slidingMenu.setBehindOffset(width*200/320);//侧拉屏幕适配 屏幕预留200像素宽度
 		initFragment();
 	}
 	

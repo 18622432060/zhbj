@@ -25,7 +25,7 @@ import com.itheima.zhbj.R;
  * @author liupeng
  */
 public class PullToRefreshListView extends ListView implements OnScrollListener{
-	
+
 	private static final int STATE_PULL_TO_REFRESH = 1;
 	private static final int STATE_RELEASE_TO_REFRESH = 2;
 	private static final int STATE_REFRESHING = 3;
@@ -35,7 +35,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	private View mHeaderView;
 	private int mHeaderViewHeight;
 	private int startY;
-	
+
 	@InjectView(R.id.tv_title)
 	TextView tvTitle;
 	@InjectView(R.id.tv_time)
@@ -46,7 +46,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 	ProgressBar pbProgress;
 	private RotateAnimation animUp;
 	private RotateAnimation animDown;
-	
+
 	public PullToRefreshListView(Context context, AttributeSet attrs,int defStyle) {
 		super(context, attrs, defStyle);
 		initHeaderView();
@@ -117,8 +117,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 				startY = (int) ev.getY();
 				break;
 			case MotionEvent.ACTION_MOVE:
-				if (startY == -1) {// 当用户按住头条新闻的viewpager进行下拉时,ACTION_DOWN会被viewpager消费掉,
-					// 导致startY没有赋值,此处需要重新获取一下
+				if (startY == -1) {// 当用户按住头条新闻的viewpager进行下拉时,ACTION_DOWN会被viewpager消费掉,导致startY没有赋值,此处需要重新获取一下
 					startY = (int) ev.getY();
 				}
 				int endY = (int) ev.getY();
@@ -128,7 +127,6 @@ public class PullToRefreshListView extends ListView implements OnScrollListener{
 				if (dy > 0 && firstVisiblePosition == 0) {
 					int padding = dy - mHeaderViewHeight;// 计算当前下拉控件的padding值
 					mHeaderView.setPadding(0, padding, 0, 0);
-	
 					if (padding > 0 && mCurrentState != STATE_RELEASE_TO_REFRESH) {
 						// 改为松开刷新
 						mCurrentState = STATE_RELEASE_TO_REFRESH;

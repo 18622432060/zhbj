@@ -11,4 +11,5 @@
     <issue id="SimpleDateFormat">
         <ignore path="src\com\itheima\zhbj74\view\PullToRefreshListView.java" />
     </issue>
+    <issue id="UselessParent" severity="ignore" />
 </lint>
